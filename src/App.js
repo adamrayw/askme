@@ -6,12 +6,12 @@ import Result from "./pages/Result";
 
 function App() {
   return (
-    <div className="App h-screen" style={{ backgroundColor: "#f6f8fd" }}>
+    <div className="App">
       <div className="wrapper max-w-2xl mx-auto pb-10 pt-28 px-2">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="result" element={<Result />} />
-          <Route path="main" element={<Main />} />
+          <Route path="result/:link" element={<Result />} />
+          <Route path=":link" element={<Main />} />
           <Route path="*" element={<div>Not Found</div>} />
         </Routes>
       </div>
