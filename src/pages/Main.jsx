@@ -7,30 +7,35 @@ import Header from '../components/header';
 export default function Main() {
     let { link } = useParams()
     const [allData, setAllData] = React.useState([]);
+    const [allMessage, setAllMessage] = React.useState([]);
     const [msg, setMsg] = React.useState('');
 
     const getData = async () => {
         const response = await axios.get('http://127.0.0.1:8000/api/' + link);
         setAllData(response.data);
-        console.log(response.data);
+        setAllMessage(response.data.message);
     }
 
     useEffect(() => {
-
         getData();
-    }, [link]);
+    }, []);
 
     function handleSendMessage(e) {
         e.preventDefault();
-        console.log('loading');
+        setMsg('');
+
+        setAllMessage([...allMessage, {
+            id: Math.random(),
+            user_id: allData.id,
+            msg: msg,
+            reply: []
+        }]);
+
         const data = {
             user_id: allData.id,
             msg: msg
         }
         const response = axios.post(' http://127.0.0.1:8000/api/' + link + '/message', data)
-        console.log(response);
-        console.log('fininsh');
-        getData()
     }
 
 
@@ -41,7 +46,7 @@ export default function Main() {
         >
             <div className="text-center space-y-2">
                 <p className="text-xl font-bold">SEND SECRET MESSAGE TO</p>
-                <p className="text-lg">{data.name}</p>
+                <p className="text-lg">{allData.name}</p>
             </div>
             <div className="my-6" >
                 <form onSubmit={handleSendMessage}>
@@ -68,13 +73,9 @@ export default function Main() {
         </section>
         <section>
             <h4 className="text-gray-400 text-left">Someone who asked you:</h4>
+            {(allData.message < 1) ? (<p className="text-gray-400 text-center mt-8">No one has asked you yet</p>) : ''}
 
-            <div className="text-center mt-4">
-                <p className="text-gray-400">No Message</p>
-            </div>
-
-
-            {allData.message?.map((e) => {
+            {allMessage?.map((e) => {
                 return (
                     <section
                         className="out-feature text-gray-800 bg-white shadow-sm rounded-lg bg-opacity-50 my-4 py-6 md:px-10 px-5"
