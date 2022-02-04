@@ -1,8 +1,12 @@
 import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 import Header from '../components/header';
 
 
-export default function result() {
+export default function Result() {
+
+    let { link } = useParams();
+
     return (
         <div>
             <Header />
@@ -23,16 +27,16 @@ export default function result() {
                         name="name"
                         className="base-input bg-gray-300 text-center font-semibold transition-all border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-6 py-3 placeholder-gray-800"
                         placeholder="Whats your name?"
-                        value="https://askme.id/awd123"
+                        value={`https://askme.id/${link}`}
                         required
                     />
                     <div className="flex justify-center">
-                        <button
-                            type="submit"
+                        <Link
+                            to={`/${link}`}
                             className="mt-8 text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-base px-5 py-2.5 text-center"
                         >
                             Open in new tab
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </section>
