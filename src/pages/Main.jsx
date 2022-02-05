@@ -1,4 +1,3 @@
-import { data } from 'autoprefixer';
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -9,33 +8,45 @@ export default function Main() {
     const [allData, setAllData] = React.useState([]);
     const [allMessage, setAllMessage] = React.useState([]);
     const [msg, setMsg] = React.useState('');
-
-    const getData = async () => {
-        const response = await axios.get('http://127.0.0.1:8000/api/' + link);
-        setAllData(response.data);
-        setAllMessage(response.data.message);
-    }
+    const [loading, setloading] = React.useState(false);
 
     useEffect(() => {
+        const getData = async () => {
+            const response = await axios.get('http://127.0.0.1:8000/api/' + link);
+            setAllData(response.data);
+            setAllMessage(response.data.message);
+        }
         getData();
     }, []);
 
-    function handleSendMessage(e) {
+    async function handleSendMessage(e) {
         e.preventDefault();
-        setMsg('');
 
-        setAllMessage([...allMessage, {
-            id: Math.random(),
-            user_id: allData.id,
-            msg: msg,
-            reply: []
-        }]);
+        if (e.target.message.value === '') {
+            return false;
+        }
+
+        setloading(true);
 
         const data = {
             user_id: allData.id,
             msg: msg
         }
-        const response = axios.post(' http://127.0.0.1:8000/api/' + link + '/message', data)
+        const response = await axios.post(' http://127.0.0.1:8000/api/' + link + '/message', data)
+
+        const dataMsg = response.data;
+
+        setAllMessage([...allMessage, {
+            created_at: dataMsg.created_at,
+            id: dataMsg.id,
+            msg: dataMsg.msg,
+            updated_at: dataMsg.updated_at,
+            user_id: dataMsg.user_id
+        }]);
+
+        console.log(dataMsg);
+        setMsg('')
+        setloading(false);
     }
 
 
@@ -59,6 +70,7 @@ export default function Main() {
                         placeholder="Write secret message..."
                         required
                         onChange={(e) => setMsg(e.target.value)}
+                        value={msg}
                     ></textarea>
                     <div className="flex justify-center">
                         <button
@@ -67,13 +79,20 @@ export default function Main() {
                         >
                             SEND
                         </button>
+                        {loading && (
+                            <>
+                                <div className="spinner-border text-red" role="status">
+                                    Loading....
+                                </div>
+                            </>
+                        )}
                     </div>
                 </form>
             </div>
         </section>
         <section>
             <h4 className="text-gray-400 text-left">Someone who asked you:</h4>
-            {(allData.message < 1) ? (<p className="text-gray-400 text-center mt-8">No one has asked you yet</p>) : ''}
+            {(allMessage < 1) ? (<p className="text-gray-400 text-center mt-8">No one has asked you yet</p>) : ''}
 
             {allMessage?.map((e) => {
                 return (
@@ -85,7 +104,7 @@ export default function Main() {
                         <div>
                             <p className="text-lg text-left">{e.msg}</p>
                         </div>
-                        {e.reply.map((r) => {
+                        {e.reply?.map((r) => {
                             return (
                                 <div key={r.id} className='w-full flex justify-end'>
                                     <p className="text-sm rounded-lg mt-2 w-36 text-left text-white bg-gray-400 py-2 px-4">{r.msg}</p>
