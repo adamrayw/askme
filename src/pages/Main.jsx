@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Header from '../components/header';
+import Header from '../components/Header';
 
 export default function Main() {
     let { link } = useParams()
@@ -17,7 +17,7 @@ export default function Main() {
             setAllMessage(response.data.message);
         }
         getData();
-    }, []);
+    }, [link]);
 
     async function handleSendMessage(e) {
         e.preventDefault();
