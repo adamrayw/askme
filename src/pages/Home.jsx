@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import spinner from '../image/spinner.svg';
 
 export default function Home() {
 
@@ -54,7 +55,10 @@ export default function Home() {
                                 {...(loading ? { disabled: true } : {})}
 
                             >
-                                {loading ? 'Loading...' : 'Start using Askme'}
+                                {loading ? (<div className='flex items-center'>
+                                    <img src={spinner} alt="spinner" width='20' />
+                                    <span className="ml-2">Please wait...</span>
+                                </div>) : 'Send'}
                             </button>
                         </div>
                     </form>
