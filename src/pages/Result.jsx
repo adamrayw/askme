@@ -27,7 +27,7 @@ export default function Result() {
                         name="name"
                         className="base-input bg-gray-300 text-center font-semibold transition-all border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-6 py-3 placeholder-gray-800"
                         placeholder="Whats your name?"
-                        value={`https://askme.id/${link}`}
+                        defaultValue={`https://askme.id/${link}`}
                         required
                     />
                     <div className="flex justify-center">
