@@ -6,15 +6,19 @@ import { useNavigate } from 'react-router-dom';
 export default function Home() {
 
     const [name, setName] = useState('');
+    const [loading, setLoading] = useState(false);
     let navigate = useNavigate();
 
     async function createUser(e) {
         e.preventDefault();
+
+        setLoading(true);
+
         const response = await axios.post('http://127.0.0.1:8000/api/user', {
             name: name,
         })
 
-        console.log(response);
+        setLoading(false);
         return navigate('/result/' + response.data.link);
     }
     return (
@@ -41,13 +45,16 @@ export default function Home() {
                             placeholder="Whats your name?"
                             required
                             onChange={(e) => setName(e.target.value)}
+                            {...(loading ? { disabled: true } : {})}
                         />
                         <div className="flex justify-center">
                             <button
                                 type="submit"
-                                className="mt-8 text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-base px-5 py-2.5 text-center"
+                                className={`mt-8 text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-base px-5 py-2.5 text-center ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                {...(loading ? { disabled: true } : {})}
+
                             >
-                                Start using Askme
+                                {loading ? 'Loading...' : 'Start using Askme'}
                             </button>
                         </div>
                     </form>
