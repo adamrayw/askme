@@ -12,13 +12,17 @@ export default function Main() {
     const [errMsg, setErrMsg] = React.useState('');
     const [loading, setloading] = React.useState(false);
 
+    const getData = async () => {
+        const response = await axios.get('http://127.0.0.1:8000/api/' + link);
+        setAllData(response.data);
+        setAllMessage(response.data.message);
+    }
     useEffect(() => {
-        const getData = async () => {
-            const response = await axios.get('http://127.0.0.1:8000/api/' + link);
-            setAllData(response.data);
-            setAllMessage(response.data.message);
-        }
+
+        console.log(allMessage);
         getData();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [link]);
 
     async function handleSendMessage(e) {
@@ -42,17 +46,37 @@ export default function Main() {
 
         const dataMsg = response.data;
 
-        setAllMessage([...allMessage, {
-            created_at: dataMsg.created_at,
-            id: dataMsg.id,
-            msg: dataMsg.msg,
-            updated_at: dataMsg.updated_at,
-            user_id: dataMsg.user_id
-        }]);
+        // setAllMessage([...allMessage, {
+        //     created_at: dataMsg.created_at,
+        //     id: dataMsg.id,
+        //     msg: dataMsg.msg,
+        //     updated_at: dataMsg.updated_at,
+        //     user_id: dataMsg.user_id
+        // }]);
+
+        getData()
 
         console.log(dataMsg);
         setMsg('')
         setloading(false);
+    }
+
+    async function handleReply(id, e) {
+        e.preventDefault();
+
+
+        const data = {
+            user_id: allData.id,
+            message_id: id,
+            reply: e.target.name.value
+        }
+
+        await axios.post('http://127.0.0.1:8000/api/' + link + '/' + id + '/reply', data)
+
+        e.target.name.value = ''
+        // eslint-disable-next-line no-unreachable
+        getData();
+
     }
 
 
@@ -101,46 +125,51 @@ export default function Main() {
             <h4 className="text-gray-400 text-left">Someone who asked you:</h4>
             {(allMessage < 1) ? (<p className="text-gray-400 text-center mt-8">No one has asked you yet</p>) : ''}
 
-            {allMessage?.map((e) => {
+            {allData.message?.map((data, index) => {
                 return (
                     <section
                         className="out-feature text-gray-800 bg-white shadow-sm rounded-lg bg-opacity-50 my-4 py-6 md:px-10 px-5"
-                        key={e.id}
+                        key={index}
                     >
 
                         <div>
-                            <p className="text-lg text-left">{e.msg}</p>
+                            <p className="text-lg text-left">{data.msg}</p>
                         </div>
-                        {e.reply?.map((r) => {
+                        {data.reply.flatMap((r) => {
                             return (
+
                                 <div key={r.id} className='w-full flex justify-end'>
                                     <p className="text-sm rounded-lg mt-2 w-36 text-left text-white bg-gray-400 py-2 px-4">{r.msg}</p>
                                 </div>
                             )
                         })}
 
-                        <div className="my-6 flex items-center space-x-2">
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                className="base-input text-gray-900 bg-gray-300 transition-all border text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-6 py-3"
-                                placeholder="Reply this question..."
-                                required
-                            />
-                            <div className="flex justify-center">
-                                <button
-                                    type="submit"
-                                    className="text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 rounded-lg text-xs px-5 py-2.5 text-center"
-                                >
-                                    Reply
-                                </button>
+                        <form onSubmit={(e) => handleReply(data.id, e)}>
+                            <div className="my-6 flex items-center space-x-2">
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    className="base-input text-gray-900 bg-gray-300 transition-all border text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-6 py-3"
+                                    placeholder="Reply this question..."
+
+                                    required
+                                // onChange={((e) => setReply(e.target.value))}
+                                />
+                                <div className="flex justify-center">
+                                    <button
+                                        type="submit"
+                                        className="text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 rounded-lg text-xs px-5 py-2.5 text-center"
+                                    >
+
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
 
                     </section>
                 )
             })}
         </section>
-    </div>;
+    </div >;
 }
