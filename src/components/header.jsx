@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function header() {
+export default function Header() {
     return (
         <section className="header text-center">
             <Link to="/"
