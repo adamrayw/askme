@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from '../components/header';
+import Header from '../components/Header';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,8 +24,8 @@ export default function Home() {
             <section
                 className="out-feature text-gray-600 bg-white rounded-lg bg-opacity-50 shadow-sm my-4 py-4 md:px-10 px-5"
             >
-                <p className="mb-4 text-xl font-bold text-center">Our Features</p>
-                <ul className="list-disc text-left tracking-widest px-5">
+                <p className="mb-4 text-xl font-bold text-left">Our Features</p>
+                <ul className="list-disc text-left tracking-widest px-5 md:text-base space-y-2 text-sm">
                     <li>Get secret feedback from anyone</li>
                     <li>Simple, type your name and get the link</li>
                     <li>No register required</li>
