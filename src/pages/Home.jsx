@@ -27,7 +27,7 @@ export default function Home() {
 
             <Header />
             <section
-                className="out-feature text-gray-600 bg-white rounded-lg bg-opacity-50 shadow-sm my-4 py-4 md:px-10 px-5"
+                className="out-feature text-gray-600 bg-white rounded-lg shadow-sm my-4 py-8 md:px-10 px-5 mx-2"
             >
                 <p className="mb-4 text-xl font-bold text-left">Our Features</p>
                 <ul className="list-disc text-left tracking-widest px-5 md:text-base space-y-2 text-sm">
@@ -42,7 +42,7 @@ export default function Home() {
                             type="text"
                             id="name"
                             name="name"
-                            className="base-input text-gray-900 bg-gray-300 transition-all border text-base rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-6 py-3"
+                            className="base-input text-gray-900 bg-gray-300 transition-all border md:text-base text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-6 py-3"
                             placeholder="Whats your name?"
                             required
                             onChange={(e) => setName(e.target.value)}
@@ -51,14 +51,14 @@ export default function Home() {
                         <div className="flex justify-center">
                             <button
                                 type="submit"
-                                className={`mt-8 text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-base px-5 py-2.5 text-center ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`mt-8 text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg md:text-base text-sm px-5 py-2.5 text-center ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 {...(loading ? { disabled: true } : {})}
 
                             >
                                 {loading ? (<div className='flex items-center'>
                                     <img src={spinner} alt="spinner" width='20' />
                                     <span className="ml-2">Please wait...</span>
-                                </div>) : 'Send'}
+                                </div>) : 'Start using Askme'}
                             </button>
                         </div>
                     </form>

@@ -11,15 +11,17 @@ export default function Main() {
     const [msg, setMsg] = React.useState('');
     const [errMsg, setErrMsg] = React.useState('');
     const [loading, setloading] = React.useState(false);
+    const [show, setShow] = React.useState(true);
 
     const getData = async () => {
+
         const response = await axios.get('https://askmee-backend.herokuapp.com/api/' + link);
         setAllData(response.data);
         setAllMessage(response.data.message);
+        setShow(false);
     }
     useEffect(() => {
 
-        console.log(allMessage);
         getData();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,8 +33,8 @@ export default function Main() {
         if (msg.length === '' || msg.length === 0 || msg.length === null) {
             setErrMsg('Please enter a valid message');
             return false;
-        } else if (msg.length < 4) {
-            setErrMsg('Message must be at least 4 characters long');
+        } else if (msg.length < 2) {
+            setErrMsg('Message must be at least 2 characters long');
             return false;
         }
 
@@ -83,20 +85,19 @@ export default function Main() {
     return <div>
         <Header />
         <section
-            className="out-feature text-gray-600 bg-white rounded-lg bg-opacity-50 shadow-sm my-4 py-4 md:px-10 px-5"
+            className="out-feature text-gray-600 bg-white rounded-lg shadow-sm my-4 py-8 md:px-10 px-5 mx-2"
         >
             <div className="text-center space-y-2">
                 <p className="text-xl font-bold">SEND SECRET MESSAGE TO</p>
-                <p className="text-lg">{allData.name}</p>
+                {show ? <div className='animate-pulse mt-4 h-6 w-28 rounded-full bg-gray-300 mx-auto' alt="spinner"></div> : <p className="text-xl font-normal">{allData.name}</p>}
             </div>
             <div className="my-6" >
                 <form onSubmit={handleSendMessage}>
-
                     <textarea
                         type="text"
                         id="name"
                         name="name"
-                        className="base-input text-gray-900 bg-gray-300 transition-all border text-base rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-6 py-3"
+                        className="base-input text-gray-900 bg-gray-300 transition-all border md:text-base text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-6 py-3"
                         placeholder="Write secret message..."
                         onChange={((e) => {
                             setMsg(e.target.value)
@@ -108,7 +109,7 @@ export default function Main() {
                     <div className="flex justify-center">
                         <button
                             type="submit"
-                            className={`mt-8 text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-base px-5 py-2.5 text-center ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`mt-4 text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg md:text-base text-sm px-5 py-2.5 text-center ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                             {...(loading ? { disabled: true } : {})}
                         >
                             {loading ? (<div className='flex items-center'>
@@ -121,19 +122,19 @@ export default function Main() {
                 </form>
             </div>
         </section>
-        <section>
-            <h4 className="text-gray-400 text-left">Someone who asked you:</h4>
+        <section className='mx-2'>
+            <h4 className="pt-6 text-gray-400 text-left">Someone who asked you:</h4>
             {(allMessage < 1) ? (<p className="text-gray-400 text-center mt-8">No one has asked you yet</p>) : ''}
 
             {allData.message?.map((data, index) => {
                 return (
                     <section
-                        className="out-feature text-gray-800 bg-white shadow-sm rounded-lg bg-opacity-50 my-4 py-6 md:px-10 px-5"
+                        className="out-feature text-gray-800 bg-white shadow-sm rounded-lg my-4 py-6 md:px-10 px-5"
                         key={index}
                     >
 
                         <div>
-                            <p className="text-lg text-left">{data.msg}</p>
+                            <p className="text-lg font-semibold text-gray-600 text-left">{data.msg}</p>
                         </div>
                         {data.reply.flatMap((r) => {
                             return (
@@ -145,12 +146,12 @@ export default function Main() {
                         })}
 
                         <form onSubmit={(e) => handleReply(data.id, e)}>
-                            <div className="my-6 flex items-center space-x-2">
+                            <div className="mt-6 flex md:flex-row flex-col md:items-center items-end md:space-x-2">
                                 <input
                                     type="text"
                                     id="name"
                                     name="name"
-                                    className="base-input text-gray-900 bg-gray-300 transition-all border text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-6 py-3"
+                                    className="base-input text-gray-900 bg-gray-300 transition-all border md:text-sm text-xs rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-6 py-3"
                                     placeholder="Reply this question..."
 
                                     required
@@ -159,7 +160,7 @@ export default function Main() {
                                 <div className="flex justify-center">
                                     <button
                                         type="submit"
-                                        className="text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 rounded-lg text-xs px-5 py-2.5 text-center"
+                                        className="md:mt-0 mt-4 text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 rounded-lg px-5 py-2.5 text-center md:text-sm text-xs"
                                     >
                                         Reply
                                     </button>

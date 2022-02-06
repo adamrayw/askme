@@ -11,12 +11,12 @@ export default function Result() {
         <div>
             <Header />
             <section
-                className="out-feature text-gray-600 bg-white rounded-lg bg-opacity-50 shadow-sm my-4 py-5 md:px-10 px-5"
+                className="out-feature text-gray-600 bg-white rounded-lg shadow-sm my-4 py-8 md:px-10 px-5 mx-2"
             >
                 <p className="mb-4 text-xl font-bold text-center">
                     Your link created successfully!
                 </p>
-                <p className="list-disc tracking-widest px-5 text-center">
+                <p className="list-disc text-sm tracking-widest px-5 text-center">
                     Now you can copy the link and paste it in your favorite social media
                     bio
                 </p>
@@ -25,15 +25,16 @@ export default function Result() {
                         type="text"
                         id="name"
                         name="name"
-                        className="base-input bg-gray-300 text-center font-semibold transition-all border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-6 py-3 placeholder-gray-800"
+                        className="base-input bg-gray-300 text-center font-semibold transition-all border border-gray-300 text-gray-900 md:text-base text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-6 py-3 placeholder-gray-800"
                         placeholder="Whats your name?"
-                        defaultValue={`https://askme.id/${link}`}
+                        defaultValue={`https://askme.vercel.app/${link}`}
                         required
+                        disabled
                     />
                     <div className="flex justify-center">
                         <Link
                             to={`/${link}`}
-                            className="mt-8 text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-base px-5 py-2.5 text-center"
+                            className="mt-8 text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg md:text-base text-sm px-5 py-2.5 text-center"
                         >
                             Open in new tab
                         </Link>
