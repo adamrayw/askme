@@ -71,7 +71,7 @@ export default function Main() {
             reply: e.target.name.value
         }
 
-        await axios.post('http://127.0.0.1:8000/api/' + link + '/' + id + '/reply', data)
+        await axios.post('https://askmee-backend.herokuapp.com/api/' + link + '/' + id + '/reply', data)
 
         e.target.name.value = ''
         // eslint-disable-next-line no-unreachable
