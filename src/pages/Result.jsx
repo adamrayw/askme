@@ -41,6 +41,9 @@ export default function Result() {
                     </div>
                 </div>
             </section>
+            <footer className='h-20 flex justify-center items-center'>
+                <small className='text-gray-300'>Made by <a className='underline text-blue-500' href="https://adamrw.me/" rel='noreferrer' target='_blank'>adamrw.me</a></small>
+            </footer>
         </div>
     );
 }
