@@ -22,7 +22,7 @@ export default function Main() {
 
         if (Object.keys(response.data).length < 1) {
             setNotFound(false);
-            
+
         }
     }
     useEffect(() => {
@@ -48,21 +48,11 @@ export default function Main() {
             user_id: allData.id,
             msg: msg
         }
-        const response = await axios.post('https://askmee-backend.herokuapp.com/api/' + link + '/message', data)
-
-        const dataMsg = response.data;
-
-        // setAllMessage([...allMessage, {
-        //     created_at: dataMsg.created_at,
-        //     id: dataMsg.id,
-        //     msg: dataMsg.msg,
-        //     updated_at: dataMsg.updated_at,
-        //     user_id: dataMsg.user_id
-        // }]);
+        await axios.post('https://askmee-backend.herokuapp.com/api/' + link + '/message', data)
 
         getData()
 
-        
+
         setMsg('')
         setloading(false);
     }
@@ -110,7 +100,7 @@ export default function Main() {
                                     setErrMsg('')
                                 })}
                                 value={msg}
-                             />
+                            />
                             <p className="text-red-500 text-sm italic mt-4">{errMsg}</p>
                             <div className="flex justify-center">
                                 <button
