@@ -7,7 +7,7 @@ export default function Header() {
             <Link to="/"
                 className="w-full text-gray-600 p-4 bg-white flex justify-center md:rounded-lg shadow-sm items-center space-x-3"
             >
-                <i className="fas fa-user-secret fa-lg"></i>
+                <i className="fas fa-user-secret fa-lg" />
                 <h2 className="md:text-2xl text-xl font-bold tracking-wider">Askme</h2>
             </Link>
         </section>

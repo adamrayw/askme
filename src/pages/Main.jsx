@@ -95,7 +95,7 @@ export default function Main() {
                 >
                     <div className="text-center space-y-2">
                         <p className="text-xl font-bold">SEND SECRET MESSAGE TO</p>
-                        {show ? <div className='animate-pulse mt-4 h-6 w-28 rounded-full bg-gray-300 mx-auto' alt="spinner"></div> : <p className="text-xl font-normal">{allData.name}</p>}
+                        {show ? <div className='animate-pulse mt-4 h-6 w-28 rounded-full bg-gray-300 mx-auto' alt="spinner" /> : <p className="text-xl font-normal">{allData.name}</p>}
                     </div>
                     <div className="my-6" >
                         <form onSubmit={handleSendMessage}>
@@ -110,7 +110,7 @@ export default function Main() {
                                     setErrMsg('')
                                 })}
                                 value={msg}
-                            ></textarea>
+                             />
                             <p className="text-red-500 text-sm italic mt-4">{errMsg}</p>
                             <div className="flex justify-center">
                                 <button
