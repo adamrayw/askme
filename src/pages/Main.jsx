@@ -22,7 +22,7 @@ export default function Main() {
 
         if (Object.keys(response.data).length < 1) {
             setNotFound(false);
-            console.log('kosong');
+            
         }
     }
     useEffect(() => {
@@ -62,7 +62,7 @@ export default function Main() {
 
         getData()
 
-        console.log(dataMsg);
+        
         setMsg('')
         setloading(false);
     }
