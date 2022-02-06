@@ -7,7 +7,7 @@ import Result from "./pages/Result";
 function App() {
   return (
     <div className="App">
-      <div className="wrapper max-w-2xl mx-auto pb-10 pt-28 px-2">
+      <div className="wrapper max-w-xl mx-auto pb-10 ">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="result/:link" element={<Result />} />
