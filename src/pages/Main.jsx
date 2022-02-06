@@ -13,7 +13,7 @@ export default function Main() {
     const [loading, setloading] = React.useState(false);
 
     const getData = async () => {
-        const response = await axios.get('http://127.0.0.1:8000/api/' + link);
+        const response = await axios.get('https://askmee-backend.herokuapp.com/api/' + link);
         setAllData(response.data);
         setAllMessage(response.data.message);
     }
@@ -42,7 +42,7 @@ export default function Main() {
             user_id: allData.id,
             msg: msg
         }
-        const response = await axios.post(' http://127.0.0.1:8000/api/' + link + '/message', data)
+        const response = await axios.post('https://askmee-backend.herokuapp.com/api/' + link + '/message', data)
 
         const dataMsg = response.data;
 
@@ -161,7 +161,7 @@ export default function Main() {
                                         type="submit"
                                         className="text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 rounded-lg text-xs px-5 py-2.5 text-center"
                                     >
-
+                                        Reply
                                     </button>
                                 </div>
                             </div>

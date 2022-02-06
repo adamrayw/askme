@@ -15,7 +15,7 @@ export default function Home() {
 
         setLoading(true);
 
-        const response = await axios.post('http://127.0.0.1:8000/api/user', {
+        const response = await axios.post('https://askmee-backend.herokuapp.com/api/user', {
             name: name,
         })
 
