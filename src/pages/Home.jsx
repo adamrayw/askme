@@ -8,10 +8,16 @@ export default function Home() {
 
     const [name, setName] = useState('');
     const [loading, setLoading] = useState(false);
+    const [msg, setMsg] = useState('');
     let navigate = useNavigate();
 
     async function createUser(e) {
         e.preventDefault();
+
+        if (name.length < 4) {
+            setMsg('Name must be at least 4 characters long');
+            return false;
+        }
 
         setLoading(true);
 
@@ -45,9 +51,13 @@ export default function Home() {
                             className="base-input text-gray-900 bg-gray-300 transition-all border md:text-base text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-6 py-3"
                             placeholder="Whats your name?"
                             required
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => {
+                                setName(e.target.value)
+                                setMsg('')
+                            }}
                             {...(loading ? { disabled: true } : {})}
                         />
+                        {msg ? <p className="mt-2 text-red-500 text-sm">{msg}</p> : ''}
                         <div className="flex justify-center">
                             <button
                                 type="submit"
