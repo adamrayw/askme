@@ -156,7 +156,7 @@ export default function Main() {
                                         <div className="flex justify-center">
                                             <button
                                                 type="submit"
-                                                className="md:mt-0 mt-4 text-white transition-all bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 rounded-lg px-5 py-2.5 text-center md:text-sm text-xs"
+                                                className="md:mt-0 mt-4 text-white transition-all bg-gray-700 active:bg-gray-500 hover:bg-gray-600 rounded-lg px-5 py-2.5 text-center md:text-sm text-xs"
                                             >
                                                 Reply
                                             </button>
