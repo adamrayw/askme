@@ -15,7 +15,7 @@ export default function Main() {
     const [notFound, setNotFound] = React.useState(true);
     const getData = async () => {
 
-        const response = await axios.get('https://askmee-backend.herokuapp.com/api/' + link);
+        const response = await axios.get('https://askme-backend-production.up.railway.app/api/' + link);
         setAllData(response.data);
         setAllMessage(response.data.message);
         setShow(false);
@@ -48,7 +48,7 @@ export default function Main() {
             user_id: allData.id,
             msg: msg
         }
-        await axios.post('https://askmee-backend.herokuapp.com/api/' + link + '/message', data)
+        await axios.post('https://askme-backend-production.up.railway.app/api/' + link + '/message', data)
 
         getData()
 
@@ -67,7 +67,7 @@ export default function Main() {
             reply: e.target.name.value
         }
 
-        await axios.post('https://askmee-backend.herokuapp.com/api/' + link + '/' + id + '/reply', data)
+        await axios.post('https://askme-backend-production.up.railway.app/api/' + link + '/' + id + '/reply', data)
 
         e.target.name.value = ''
         // eslint-disable-next-line no-unreachable

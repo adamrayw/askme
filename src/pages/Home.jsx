@@ -21,7 +21,7 @@ export default function Home() {
 
         setLoading(true);
 
-        const response = await axios.post('https://askmee-backend.herokuapp.com/api/user', {
+        const response = await axios.post('https://askme-backend-production.up.railway.app/api/user', {
             name: name,
         })
 
